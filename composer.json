@@ -1,0 +1,26 @@
+{
+    "name": "tfhinc/ci-ray",
+    "description": "Ray is an expressive PHP array class for the Codeigniter framework.",
+    "keywords": ["codeigniter", "ci-ray", "ray", "php", "array"],
+    "homepage": "https://github.com/TFHInc/ci-ray",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Colin Rafuse",
+            "email": "colin.rafuse@gmail.com",
+            "homepage": "http://colinrafuse.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : ">=7.1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "TFHInc\\Ray\\": "src"
+        }
+    }
+}
