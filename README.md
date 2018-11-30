@@ -1,6 +1,9 @@
 # Ray
 
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![PHP Version][ico-php-version]][link-packagist]
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Total Downloads][ico-downloads]][link-downloads]
 
 Ray is an expressive PHP array library for the [Codeigniter](https://codeigniter.com/) framework.
 
@@ -245,31 +248,30 @@ ray($fruit)->first();
 
 The following methods are currently available:
 
-- [sortByKeys](#sortByKeys())
-- [sortByValues](#sortByValues())
-- [contains](#contains())
-- [has](#has())
-- [sum](#sum())
-- [avg](#avg())
-- [count](#count())
-- [first](#first())
-- [last](#last())
-- [keys](#keys())
-- [values](#values())
-- [except](#except())
-- [only](#only())
-- [unique](#unique())
-- [groupBy](#groupBy())
-- [column](#column())
-- [where](#where())
-- [whereIn](#whereIn())
-- [whereNot](#whereNot())
-- [whereNotIn](#whereNotIn())
-- [filter](#filter())
-- [reduce](#reduce())
+- [sortByKeys](#sortbykeys)
+- [sortByValues](#sortbyvalues)
+- [contains](#contains)
+- [has](#has)
+- [sum](#sum)
+- [avg](#avg)
+- [count](#count)
+- [first](#first)
+- [last](#last)
+- [keys](#keys)
+- [values](#values)
+- [except](#except)
+- [only](#only)
+- [unique](#unique)
+- [groupBy](#groupby)
+- [column](#column)
+- [where](#where)
+- [whereIn](#wherein)
+- [whereNot](#wherenot)
+- [whereNotIn](#wherenotin)
+- [filter](#filter)
+- [reduce](#reduce)
 
-#### sortByKeys()
-
+#### `sortByKeys()`
 Sort the array by its keys.
 
 ```php
@@ -288,54 +290,47 @@ ray($fruit)->sortByKeys()->toArray();
 */
 ```
 
-#### sortByValues()
-
+#### `sortByValues()`
 Sort the array by its values.
 
 ```php
 ray($fruit)->sortByValues()->toArray();
 
-/* Result
+/*
 
-Array
-(
-    [lime] => green
-    [apple] => red
-    [lemon] => yellow
-)
+    Array
+    (
+        [lime] => green
+        [apple] => red
+        [lemon] => yellow
+    )
 
 */
 ```
 
-#### has()
-
+#### `has(mixed $key)`
 Determine if the array contains a given key.
 
 ```php
 ray($fruit_multi)->has('price');
 
-// Result
 // true
 
 ray($fruit_multi)->has('brand');
 
-// Result
 // false
 ```
 
-#### contains()
-
+#### `contains(mixed $value [, mixed $key])`
 Determine if the array contains a given value.
 
 ```php
 ray($fruit_multi)->contains('green');
 
-// Result
 // true
 
 ray($fruit_multi)->contains('brown');
 
-// Result
 // false
 ```
 
@@ -344,12 +339,10 @@ Optionally provide a key to limit the `contains()` check
 ```php
 ray($fruit_multi)->contains('color', 'green');
 
-// Result
 // true
 
 ray($fruit_multi)->contains('color', 'brown');
 
-// Result
 // false
 ```
 
