@@ -250,15 +250,14 @@ The following methods are currently available:
 
 - [sortByKeys](#sortbykeys)
 - [sortByValues](#sortbyvalues)
-- [contains](#contains)
+- [contains](#containsmixed-value--mixed-key)
 - [has](#has)
 - [sum](#sum)
 - [avg](#avg)
 - [count](#count)
+- [values](#values)
 - [first](#first)
 - [last](#last)
-- [keys](#keys)
-- [values](#values)
 - [except](#except)
 - [only](#only)
 - [unique](#unique)
@@ -308,7 +307,7 @@ ray($fruit)->sortByValues()->toArray();
 */
 ```
 
-#### `has(mixed $key)`
+#### `has(string $key)`
 Determine if the array contains a given key.
 
 ```php
@@ -321,7 +320,7 @@ ray($fruit_multi)->has('brand');
 // false
 ```
 
-#### `contains(mixed $value [, mixed $key])`
+#### `contains(string $value [, string $key])`
 Determine if the array contains a given value.
 
 ```php
@@ -344,6 +343,497 @@ ray($fruit_multi)->contains('color', 'green');
 ray($fruit_multi)->contains('color', 'brown');
 
 // false
+```
+
+#### `sum(string $key)`
+Get the sum of the values for the provided key.
+
+```php
+ray($fruit_multi)->sum('qty');
+
+// 30
+
+ray($fruit_multi)->sum('price');
+
+// 8.74
+```
+
+#### `avg(string $key)`
+Get the average of the values for the provided key.
+
+```php
+ray($fruit_multi)->avg('price');
+
+// 2.185
+```
+
+#### `count()`
+Get the count of the values.
+
+```php
+ray($fruit_multi)->count();
+
+// 4
+```
+
+#### `values()`
+Get the values of the array. Can be used to reindex the array with consecutive integers.
+
+```php
+ray($fruit)->values()->toArray();
+
+/*
+
+    Array
+    (
+        [0] => yellow
+        [1] => red
+        [2] => green
+        [3] => green
+    )
+
+*/
+```
+
+#### `first()`
+Get the first value of the array.
+
+```php
+ray($fruit)->first();
+
+// yellow
+
+ray($fruit_multi)->first();
+
+/*
+
+    Array
+    (
+        [id] => 1
+        [name] => lemon
+        [color] => yellow
+        [price] => 2.25
+        [qty] => 2
+    )
+
+*/
+```
+
+#### `last()`
+Get the last value of the array.
+
+```php
+ray($fruit)->last();
+
+// green
+
+ray($fruit_multi)->last();
+
+/*
+
+    Array
+    (
+        [id] => 4
+        [name] => pear
+        [color] => green
+        [price] => 2
+        [qty] => 7
+    )
+
+*/
+```
+
+#### `except(array $keys)`
+Get all array elements except for the provided keys.
+
+```php
+ray($fruit)->except(['apple', 'lime'])->toArray();
+
+/*
+
+    Array
+    (
+        [lemon] => yellow
+        [pear] => green
+    )
+
+*/
+```
+
+#### `only(array $keys)`
+Only get the array elements for the provided keys.
+
+```php
+ray($fruit)->only(['apple', 'lime'])->toArray();
+
+/*
+
+    Array
+    (
+        [apple] => red
+        [lime] => green
+    )
+
+*/
+```
+
+#### `unique([string $key])`
+Limit the array by unique value. Optionally limit by unique values of the provided key. The array keys are preserved. If there are duplicate values, the first key/value pair will be retained.
+
+```php
+ray($fruit)->unique()->toArray();
+
+/*
+
+    Array
+    (
+        [lemon] => yellow
+        [apple] => red
+        [lime] => green
+    )
+
+*/
+
+ray($fruit_multi)->unique('color')->toArray();
+
+/*
+
+    Array
+    (
+        [0] => Array
+            (
+                [id] => 1
+                [name] => lemon
+                [color] => yellow
+                [price] => 2.25
+                [qty] => 2
+            )
+    
+        [1] => Array
+            (
+                [id] => 2
+                [name] => apple
+                [color] => red
+                [price] => 0.99
+                [qty] => 12
+            )
+    
+        [2] => Array
+            (
+                [id] => 3
+                [name] => lime
+                [color] => green
+                [price] => 3.5
+                [qty] => 9
+            )
+    
+    )
+
+*/
+```
+
+#### `groupBy(string $key)`
+Group the array by a given key.
+
+```php
+ray($fruit_multi)->groupBy('color')->toArray();
+
+/*
+
+    Array
+    (
+        [yellow] => Array
+            (
+                [0] => Array
+                    (
+                        [id] => 1
+                        [name] => lemon
+                        [color] => yellow
+                        [price] => 2.25
+                        [qty] => 2
+                    )
+    
+            )
+    
+        [red] => Array
+            (
+                [0] => Array
+                    (
+                        [id] => 2
+                        [name] => apple
+                        [color] => red
+                        [price] => 0.99
+                        [qty] => 12
+                    )
+    
+            )
+    
+        [green] => Array
+            (
+                [0] => Array
+                    (
+                        [id] => 3
+                        [name] => lime
+                        [color] => green
+                        [price] => 3.5
+                        [qty] => 9
+                    )
+    
+                [1] => Array
+                    (
+                        [id] => 4
+                        [name] => pear
+                        [color] => green
+                        [price] => 2
+                        [qty] => 7
+                    )
+    
+            )
+    
+    )
+
+*/
+```
+
+#### `column(string $key, [string $key_by])`
+Retreive an entire column from the array. Optionally key the new transformed array by the provided key_by argument.
+
+```php
+ray($fruit_multi)->column('color')->toArray();
+
+/*
+
+    Array
+    (
+        [0] => yellow
+        [1] => red
+        [2] => green
+        [3] => green
+    )
+
+*/
+
+ray($fruit_multi)->column('color', 'name')->toArray();
+
+/*
+
+    Array
+    (
+        [lemon] => yellow
+        [apple] => red
+        [lime] => green
+        [pear] => green
+    )
+
+*/
+```
+
+#### `where(string $key, string $value)`
+Limit the array by a specific key and value.
+
+```php
+ray($fruit_multi)->where('color', 'green')->toArray();
+
+/*
+
+    Array
+    (
+        [2] => Array
+            (
+                [id] => 3
+                [name] => lime
+                [color] => green
+                [price] => 3.5
+                [qty] => 9
+            )
+    
+        [3] => Array
+            (
+                [id] => 4
+                [name] => pear
+                [color] => green
+                [price] => 2
+                [qty] => 7
+            )
+    
+    )
+
+*/
+```
+
+#### `whereIn(string $key, array $values)`
+Limit the array by a specific key and an array of values.
+
+```php
+ray($fruit_multi)->whereIn('color', ['green', 'yellow'])->toArray();
+
+/*
+
+    Array
+    (
+        [0] => Array
+            (
+                [id] => 1
+                [name] => lemon
+                [color] => yellow
+                [price] => 2.25
+                [qty] => 2
+            )
+    
+        [2] => Array
+            (
+                [id] => 3
+                [name] => lime
+                [color] => green
+                [price] => 3.5
+                [qty] => 9
+            )
+    
+        [3] => Array
+            (
+                [id] => 4
+                [name] => pear
+                [color] => green
+                [price] => 2
+                [qty] => 7
+            )
+    
+    )
+
+*/
+```
+
+#### `whereNot(string $key, string $value)`
+Limit the array by a given key and value.
+
+```php
+ray($fruit_multi)->whereNot('color', 'green')->toArray();
+
+/*
+
+    Array
+    (
+        [0] => Array
+            (
+                [id] => 1
+                [name] => lemon
+                [color] => yellow
+                [price] => 2.25
+                [qty] => 2
+            )
+    
+        [1] => Array
+            (
+                [id] => 2
+                [name] => apple
+                [color] => red
+                [price] => 0.99
+                [qty] => 12
+            )
+    
+    )
+
+*/
+```
+
+#### `whereNotIn(string $key, array $values)`
+Limit the array by a specific key and an array of values.
+
+```php
+ray($fruit)->whereNotIn('color', ['green', 'yellow'])->toArray();
+
+/*
+
+    Array
+    (
+        [1] => Array
+            (
+                [id] => 2
+                [name] => apple
+                [color] => red
+                [price] => 0.99
+                [qty] => 12
+            )
+    
+    )
+
+*/
+```
+
+#### `filter(callable $callback)`
+Filter the array by the provided callback.
+
+```php
+ray($fruit_multi)->filter(function($value, $key) {
+    return $value['price'] > 3;
+})->toArray();
+
+/*
+
+    Array
+    (
+        [2] => Array
+            (
+                [id] => 3
+                [name] => lime
+                [color] => green
+                [price] => 3.5
+                [qty] => 9
+            )
+    
+)
+
+*/
+
+ray($fruit_multi)->filter(function($value, $key) {
+    return $value['price'] < 3;
+})->toArray();
+
+/*
+
+    Array
+    (
+        [0] => Array
+            (
+                [id] => 1
+                [name] => lemon
+                [color] => yellow
+                [price] => 2.25
+                [qty] => 2
+            )
+    
+        [1] => Array
+            (
+                [id] => 2
+                [name] => apple
+                [color] => red
+                [price] => 0.99
+                [qty] => 12
+            )
+    
+        [3] => Array
+            (
+                [id] => 4
+                [name] => pear
+                [color] => green
+                [price] => 2
+                [qty] => 7
+            )
+    
+    )
+
+*/
+```
+
+#### `reduce(callable $callback)`
+Reduce the array by a callback to a single value.
+
+```php
+ray($fruit_multi)->reduce(function($carry, $value) {
+    return $value['qty'] < 3 ? $carry + $value['qty'] : $carry;
+});
+
+// 2
 ```
 
 ## Contributing

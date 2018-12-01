@@ -233,7 +233,7 @@ class Ray {
     /**
      * Count the items in the working array.
      *
-     * @return  mixed   $avg_numeric
+     * @return  mixed
      */
     public function count(): int
     {
@@ -241,19 +241,23 @@ class Ray {
     }
 
     /**
-     * Return the working arrays values. Can be used to reindex the array with consecutive integers.
+     * Return the first array value.
      *
-     * @return  Ray     $this
+     * @return  mixed
      */
-    public function first(?callable $first_callable = null)
+    public function first()
     {
-        if (is_null($first_callable)) {
-            $first_value = array_shift($this->working_array);
-        } else {
-            $first_value = $this->filter($first_callable);
-        }
+        return array_shift($this->working_array);
+    }
 
-        return $first_value;
+    /**
+     * Return the last array value.
+     *
+     * @return  mixed
+     */
+    public function last()
+    {
+        return array_values(array_slice($this->working_array, -1))[0];
     }
 
     /**
@@ -356,7 +360,7 @@ class Ray {
     }
 
     /**
-     * Rereive an entire column from the working array. Optionally key the new transformed array by the provided key_by.
+     * Retreive an entire column from the working array. Optionally key the new transformed array by the provided key_by.
      *
      * @param   string      $column_key
      * @param   string|null $column_key_by
