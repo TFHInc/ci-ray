@@ -7,6 +7,11 @@
 
 Ray is an expressive PHP array library for the [Codeigniter](https://codeigniter.com/) framework.
 
+## Requirements
+
+- PHP >= 7.1.0
+- CodeIgnitor 3.x
+
 ## Installation
 
 ```bash
@@ -250,25 +255,25 @@ The following methods are currently available:
 
 - [sortByKeys](#sortbykeys)
 - [sortByValues](#sortbyvalues)
+- [has](#hasstring-key)
 - [contains](#containsmixed-value--mixed-key)
-- [has](#has)
-- [sum](#sum)
-- [avg](#avg)
+- [sum](#sumstring-key)
+- [avg](#avgstring-key)
 - [count](#count)
 - [values](#values)
 - [first](#first)
 - [last](#last)
-- [except](#except)
-- [only](#only)
-- [unique](#unique)
-- [groupBy](#groupby)
-- [column](#column)
-- [where](#where)
-- [whereIn](#wherein)
-- [whereNot](#wherenot)
-- [whereNotIn](#wherenotin)
-- [filter](#filter)
-- [reduce](#reduce)
+- [except](#exceptarray-keys)
+- [only](#onlyarray-keys)
+- [unique](#uniquestring-key)
+- [groupBy](#groupbystring-key)
+- [column](#columnstring-key-string-key_by)
+- [where](#wherestring-key-string-value)
+- [whereIn](#whereinstring-key-array-values)
+- [whereNot](#wherenotstring-key-string-value)
+- [whereNotIn](#wherenotinstring-key-array-values)
+- [filter](#filtercallable-callback)
+- [reduce](#reducecallable-callback)
 
 #### `sortByKeys()`
 Sort the array by its keys.
