@@ -22,5 +22,11 @@
         "psr-4": {
             "TFHInc\\Ray\\": "src"
         }
+    },
+    "scripts": {
+        "publish-files": [
+            "@php -r \"copy('src/Libraries/Ray.php', '../../../application/libraries/Ray.php');\"",
+            "@php -r \"copy('src/Helpers/ray_helper.php', '../../../application/helpers/ray_helper.php');\""
+        ]
     }
 }

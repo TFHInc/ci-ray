@@ -18,11 +18,14 @@ Ray is an expressive PHP array library for the [Codeigniter](https://codeigniter
 composer require tfhinc/ci-ray
 ```
 
-- Copy the `tfhinc/ci-ray/src/Helpers/ray_helper.php` file to `application/helpers/ray_helper.php`
+Run the post install command to publish the helper and class files to the appropriate CI directories:
+```bash
+composer --working-dir=vendor/tfhinc/ci-ray/ run-script publish-files
+```
 
 ## Loading the Library
 
-There are two available options for loading the `Ray` library:
+There are a few available options for loading the Warehouse library:
 
 ### Using the `ray()` helper function
 
@@ -38,6 +41,14 @@ The Ray class can be instantiated when you require it:
 
 ``` php
 $ray = new TFHInc/Ray/Ray();
+```
+
+### Using the Ray CI Library
+
+The Ray class can be loaded like any other CI library:
+
+``` php
+$this->load->library('Ray');
 ```
 
 ## Usage
